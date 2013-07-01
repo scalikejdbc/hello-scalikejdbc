@@ -47,7 +47,7 @@ object Skill extends SQLSyntaxSupport[Skill] {
     select.from(Skill as s)
       .where.append(isNotDeleted).and.append(sqls"${where}")
       .orderBy(s.id)
-  }.map(Skill(s.resultName)).list.apply()
+  }.map(Skill(s)).list.apply()
 
   def countBy(where: SQLSyntax)(implicit session: DBSession = autoSession): Long = withSQL {
     select(sqls.count).from(Skill as s).where.append(isNotDeleted).and.append(sqls"${where}")
