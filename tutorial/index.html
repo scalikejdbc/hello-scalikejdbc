@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Hello ScalikeJDBC! - Activator Template</title>
+</head>
+<body>
+
+<div>
+    <h2>Ruby snippets on sbt console</h2>
+    <p>You can try snippets on sbt console as follows.</p>
+
+    <pre><code>
+// basic import
+import scalikejdbc._, SQLInterpolation._
+
+// load conf/application.conf
+import scalikejdbc.config._
+DBs.setupAll
+
+// prepare data
+import models._, misc._
+DBInitializer.run()
+GlobalSettings.sqlFormatter = SQLFormatterSettings("misc.HibernateSQLFormatter")
+implicit val autoSession = AutoSession
+
+// run snippets
+val c = Company.syntax("c")
+val companies = List[Company] = withSQL {
+  select.from(Company as c).where.isNull(c.deletedAt).orderBy(c.id)
+}.map(Company(c)).list.apply()
+</code></pre>
+</div>
+
+<div>
+    <h2>More Examples</h2>
+    <p>Let's move on to <a href="#code/app/models/Company.scala" class="shortcut">app/models/Company.scala</a> which contains some examples.</p>
+</div>
+
+<div>
+    <h2>Next Steps</h2>
+    <p>For more information, check out the manual on the <a href="https://github.com/seratch/scalikejdbc/wiki">Wiki</a>.</p>
+</div>
+
+</body>
+</html>
+
