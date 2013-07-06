@@ -26,7 +26,7 @@ object Company extends SQLSyntaxSupport[Company] {
   )
 
   val c = Company.syntax("c")
-  val autoSession = AutoSession
+  private val autoSession = AutoSession
   private val isNotDeleted = sqls.isNull(c.deletedAt)
 
   def find(id: Long)(implicit session: DBSession = autoSession): Option[Company] = withSQL {
@@ -55,9 +55,10 @@ object Company extends SQLSyntaxSupport[Company] {
 
   def create(name: String, url: Option[String] = None, createdAt: DateTime = DateTime.now)(implicit session: DBSession = autoSession): Company = {
     val id = withSQL {
-      insert.into(Company)
-        .columns(column.name, column.url, column.createdAt)
-        .values(name, url, createdAt)
+      insert.into(Company).namedValues(
+        column.name -> name, 
+        column.url -> url, 
+        column.createdAt -> createdAt)
     }.updateAndReturnGeneratedKey.apply()
 
     Company(id = id, name = name, url = url, createdAt = createdAt)
@@ -65,7 +66,10 @@ object Company extends SQLSyntaxSupport[Company] {
 
   def save(m: Company)(implicit session: DBSession = autoSession): Company = {
     withSQL {
-      update(Company).set(column.name -> m.name, column.url -> m.url).where.eq(column.id, m.id).and.isNull(column.deletedAt)
+      update(Company).set(
+        column.name -> m.name, 
+        column.url -> m.url
+      ).where.eq(column.id, m.id).and.isNull(column.deletedAt)
     }.update.apply()
     m
   }

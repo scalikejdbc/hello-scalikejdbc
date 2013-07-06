@@ -19,9 +19,8 @@ case class Programmer(
   private val column = ProgrammerSkill.column
 
   def addSkill(skill: Skill)(implicit session: DBSession = Programmer.autoSession): Unit = withSQL {
-    insert
-      .into(ProgrammerSkill).columns(column.programmerId, column.skillId)
-      .values(id, skill.id)
+    insert.into(ProgrammerSkill)
+      .namedValues(column.programmerId -> id, column.skillId -> skill.id)
   }.update.apply()
 
   def deleteSkill(skill: Skill)(implicit session: DBSession = Programmer.autoSession): Unit = withSQL {
@@ -59,11 +58,11 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
 
   // SyntaxProvider objects
   val p = Programmer.syntax("p")
+
   private val (c, s, ps) = (Company.c, Skill.s, ProgrammerSkill.ps)
+  private val autoSession = AutoSession
 
-  val autoSession = AutoSession
-
-  // a re-used part of SQL
+  // reusable part of SQL
   private val isNotDeleted = sqls.isNull(p.deletedAt)
 
   // find by primary key
@@ -127,9 +126,10 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
       throw new IllegalArgumentException(s"Company is not found! (companyId: ${companyId})")
     }
     val id = withSQL {
-      insert
-        .into(Programmer).columns(column.name, column.companyId, column.createdAt)
-        .values(name, companyId, createdAt)
+      insert.into(Programmer).namedValues(
+        column.name -> name, 
+        column.companyId -> companyId, 
+        column.createdAt -> createdAt)
     }.updateAndReturnGeneratedKey.apply()
 
     Programmer(
@@ -142,9 +142,10 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
 
   def save(m: Programmer)(implicit session: DBSession = autoSession): Programmer = {
     withSQL {
-      update(Programmer)
-        .set(column.name -> m.name, column.companyId -> m.companyId)
-        .where.eq(column.id, m.id).and.isNull(column.deletedAt)
+      update(Programmer).set(
+        column.name -> m.name, 
+        column.companyId -> m.companyId
+      ).where.eq(column.id, m.id).and.isNull(column.deletedAt)
     }.update.apply()
     m
   }

@@ -26,7 +26,8 @@ object Skill extends SQLSyntaxSupport[Skill] {
   def opt(s: SyntaxProvider[Skill])(rs: WrappedResultSet): Option[Skill] = rs.longOpt(s.resultName.id).map(_ => apply(s.resultName)(rs))
 
   val s = Skill.syntax("s")
-  val autoSession = AutoSession
+
+  private val autoSession = AutoSession
   private val isNotDeleted = sqls.isNull(s.deletedAt)
 
   def find(id: Long)(implicit session: DBSession = autoSession): Option[Skill] = withSQL {
@@ -55,9 +56,7 @@ object Skill extends SQLSyntaxSupport[Skill] {
 
   def create(name: String, createdAt: DateTime = DateTime.now)(implicit session: DBSession = autoSession): Skill = {
     val id = withSQL {
-      insert.into(Skill)
-        .columns(column.name, column.createdAt)
-        .values(name, createdAt)
+      insert.into(Skill).namedValues(column.name -> name, column.createdAt -> createdAt)
     }.updateAndReturnGeneratedKey.apply()
 
     Skill(id = id, name = name, createdAt = createdAt)
