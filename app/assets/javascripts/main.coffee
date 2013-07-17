@@ -133,29 +133,6 @@ ProgrammersView = Backbone.View.extend
       ))
     )
 
-  getAllProgrammers: () -> 
-    dfd = $.Deferred()
-    new Programmers().fetch
-      success: (programmers) -> 
-        programmers.each((pg) -> pg.set("skills", []) unless (pg.get("skills")))
-        dfd.resolve()
-      error: dfd.reject
-    dfd.promise()
-
-  getAllCompanies: () ->
-    dfd = $.Deferred()
-    new Companies().fetch
-      success: dfd.resolve
-      error:   dfd.reject
-    dfd.promise()
-
-  getAllSkills: () ->
-    dfd = $.Deferred()
-    new Skills().fetch
-      success: dfd.resolve
-      error: dfd.reject
-    dfd.promise()
-
 # --- Companies ---
 
 Company = Backbone.Model.extend
