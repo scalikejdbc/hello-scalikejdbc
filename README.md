@@ -1,6 +1,6 @@
 # Hello ScalikeJDBC!
 
-This is a template for [Typesafe Activator](http://typesafe.com/platform/getstarted) for ScalikeJDBC beginnners.
+This is a template for [Typesafe Activator](http://typesafe.com/platform/getstarted) for ScalikeJDBC beginners.
 
 ![screenshot](https://raw.github.com/seratch/hello-scalikejdbc/master/screenshot.png)
 
@@ -18,21 +18,27 @@ Play Framework makes it easy to build web applications with Java & Scala. Play i
 
 Built on Akka, Play provides predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications.
 
+### play-flyway
+
+https://github.com/tototoshi/play-flyway
+
+Flyway plugin for Play2. It aims to be a substitute for play-evolutions.
+
+### play-json4s
+
+https://github.com/tototoshi/play-json4s
+
+This module allows you to use json4s in your Play2 apps.
+
 ## Backbone.js
 
 http://backbonejs.org/
 
 Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.
 
-### play-flyway
+## CoffeeScript
 
-https://github.com/tototoshi/play-flyway
+http://coffeescript.org/
 
-Flyway plugin for Play 2.1. It aims to be a substitute for play-evolutions.
-
-### play-json4s
-
-https://github.com/tototoshi/play-json4s
-
-This module allows you to use json4s in your play20 application.
+CoffeeScript is a little language that compiles into JavaScript. Underneath that awkward Java-esque patina, JavaScript has always had a gorgeous heart. CoffeeScript is an attempt to expose the good parts of JavaScript in a simple way.
 
