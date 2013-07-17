@@ -54,6 +54,14 @@ insert into skill (name, created_at) values ('Java', current_timestamp);
 insert into skill (name, created_at) values ('Ruby', current_timestamp);
 insert into skill (name, created_at) values ('MySQL', current_timestamp);
 insert into skill (name, created_at) values ('PostgreSQL', current_timestamp);
+
+insert into programmer (name, company_id, created_timestamp) values ('Alice', 1, current_timestamp);
+insert into programmer (name, company_id, created_timestamp) values ('Bob', 2, current_timestamp);
+insert into programmer (name, company_id, created_timestamp) values ('Chris', 1, current_timestamp);
+
+insert into programmer_skill values (1, 1);
+insert into programmer_skill values (1, 2);
+insert into programmer_skill values (2, 2);
    """.execute.apply()
           }
       }

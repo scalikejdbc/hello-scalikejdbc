@@ -1,7 +1,7 @@
 package controllers
 
 import play.api._, mvc._
-import play.api.data._, Forms._
+import play.api.data._, Forms._, validation.Constraints._
 
 import org.json4s._, ext.JodaTimeSerializers, native.JsonMethods._
 import com.github.tototoshi.play2.json4s.native._
@@ -20,12 +20,23 @@ object Companies extends Controller with Json4s {
     Company.find(id).map { company => Ok(Extraction.decompose(company)) } getOrElse NotFound
   }
 
-  private val companyForm = Form(tuple("name" -> text, "url" -> text))
+  case class CompanyForm(name: String, url: Option[String] = None)
+
+  private val companyForm = Form(
+    mapping(
+      "name" -> text.verifying(nonEmpty),
+      "url"  -> optional(text)
+    )(CompanyForm.apply)(CompanyForm.unapply)
+  )
 
   def create = Action { implicit req =>
-    val (name, url) = companyForm.bindFromRequest.get
-    val company = Company.create(name = name, url = if (url.isEmpty) None else Some(url))
-    Created.withHeaders(LOCATION -> s"/companies/${company.id}")
+    companyForm.bindFromRequest.fold(
+      formWithErrors => BadRequest("invalid parameters"),
+      form => {
+        val company = Company.create(name = form.name, url = form.url)
+        Created.withHeaders(LOCATION -> s"/companies/${company.id}")
+      }
+    )
   }
 
   def delete(id: Long) = Action {

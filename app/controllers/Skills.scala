@@ -1,7 +1,7 @@
 package controllers
 
 import play.api._, mvc._
-import play.api.data._, Forms._
+import play.api.data._, Forms._, validation.Constraints._
 
 import org.json4s._, ext.JodaTimeSerializers, native.JsonMethods._
 import com.github.tototoshi.play2.json4s.native._
@@ -20,12 +20,20 @@ object Skills extends Controller with Json4s {
     Skill.find(id).map(skill => Ok(Extraction.decompose(skill))) getOrElse NotFound
   }
 
-  private val skillForm = Form("name" -> text)
+  case class SkillForm(name: String)
+
+  private val skillForm = Form(
+    mapping("name" -> text.verifying(nonEmpty))(SkillForm.apply)(SkillForm.unapply)
+  )
 
   def create = Action { implicit req =>
-    val name = skillForm.bindFromRequest.get
-    val skill = Skill.create(name = name)
-    Created.withHeaders(LOCATION -> s"/skills/${skill.id}")
+    skillForm.bindFromRequest.fold(
+      formWithErrors => BadRequest("invalid parameters"),
+      form => {
+        val skill = Skill.create(name = form.name)
+        Created.withHeaders(LOCATION -> s"/skills/${skill.id}")
+      }
+    )
   }
 
   def delete(id: Long) = Action {
