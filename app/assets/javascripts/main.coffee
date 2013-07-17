@@ -148,6 +148,16 @@ Company = Backbone.Model.extend
       success: (response) -> new CompaniesView().renew()
       error: (response)   -> window.alert("Failed to add a company because of #{response.responseText}!")
 
+  delete: () ->
+    if @id
+      id = @id
+      route = jsRoutes.controllers.Companies.delete(id)
+      $.ajax
+        url: route.url, type: route.method,
+        success: (response) -> new CompaniesView().renew()
+        error: (response) -> console.log("DELETE /companies/#{id} failure (status: #{response.statusText})")
+    else window.alert('id should be specified!')
+
 Companies = Backbone.Collection.extend
   model: Company
   url: '/companies'
@@ -170,11 +180,7 @@ CompaniesView = Backbone.View.extend
     if window.confirm("Are you sure?")
       event.preventDefault()
       id = $(event.currentTarget).attr('data-id')
-      route = jsRoutes.controllers.Companies.delete(id)
-      $.ajax
-        url: route.url, type: route.method,
-        success: (response) -> new CompaniesView().renew()
-        error: (response) -> console.log("DELETE /companies/#{id} failure (status: #{response.statusText})")
+      new Company(id: id).delete()
 
   render: (param) -> 
     $('#main').html(@$el.html(_.template($('#main_companies').html(), param)))
@@ -199,6 +205,16 @@ Skill = Backbone.Model.extend
       success: (response) -> new SkillsView().renew()
       error: (response) -> window.alert("Failed to add a skill because of #{response.responseText}!")
 
+  delete: () ->
+    if @id
+      id = @id
+      route = jsRoutes.controllers.Skills.delete(id)
+      $.ajax
+        url: route.url, type: route.method,
+        success: (response) -> new SkillsView().renew()
+        error: (response) -> console.log("DELETE /skills/#{id} failure (status: #{response.statusText})")
+    else window.alert('id should be specified!')
+
 Skills = Backbone.Collection.extend
   model: Skill
   url: '/skills'
@@ -221,11 +237,7 @@ SkillsView = Backbone.View.extend
     if window.confirm("Are you sure?")
       event.preventDefault()
       id = $(event.currentTarget).attr('data-id')
-      route = jsRoutes.controllers.Skills.delete(id)
-      $.ajax
-        url: route.url, type: route.method,
-        success: (response) -> new SkillsView().renew()
-        error: (response) -> console.log("DELETE /skills/#{id} failure (status: #{response.statusText})")
+      new Skill(id: id).delete()
 
   render: (param) -> 
     $('#main').html(@$el.html(_.template($('#main_skills').html(), param)))
