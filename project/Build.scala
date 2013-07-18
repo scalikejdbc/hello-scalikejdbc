@@ -20,6 +20,11 @@ object DevTeamBuild extends Build {
       "org.json4s"           %% "json4s-ext"                      % "3.2.4",
       "com.github.tototoshi" %% "play-json4s-native"              % "0.1.0",
       "com.github.tototoshi" %% "play-flyway"                     % "0.1.4",
+      "org.webjars"          %% "webjars-play"                    % "2.1.0-2",
+      "org.webjars"          %  "jquery"                          % "1.10.2",
+      "org.webjars"          %  "backbonejs"                      % "1.0.0-1",
+      "org.webjars"          %  "underscorejs"                    % "1.5.1",
+      "org.webjars"          %  "bootstrap"                       % "2.3.2",
       "com.github.seratch"   %% "scalikejdbc-test"                % scalikejdbcVersion  % "test",
       "org.specs2"           %% "specs2"                          % "2.1"               % "test"
     )

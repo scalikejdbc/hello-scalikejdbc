@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>Hello ScalikeJDBC!</title>
-<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-responsive.min.css")">
-<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.7.1.js")"></script>
+
+<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap-responsive.min.css"))'>
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
 <style type="text/css"> body { padding-top: 60px; } </style>
 </head>
 <body>
@@ -32,13 +33,11 @@
   </div>
 </div>
 
-<script type="text/javascript" src="@routes.Assets.at("javascripts/underscore-min.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/backbone-min.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
-
-<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-play-1.7.1.js")"></script>
 <script type="text/javascript" src="@routes.JsRouter.javascriptRoutes"></script>
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("underscore.min.js"))'></script>
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("backbone.min.js"))'></script>
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
 
 <script type="text/template" id="main_programmers">
 <h3>Programmers</h3>

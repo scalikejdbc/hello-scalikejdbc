@@ -24,4 +24,5 @@ DELETE  /skills/:id                         controllers.Skills.delete(id: Long)
 
 GET     /assets/javascripts/routes          controllers.JsRouter.javascriptRoutes
 GET     /assets/*file                       controllers.Assets.at(path="/public", file)
+GET     /webjars/*file                      controllers.WebJarAssets.at(file)
 
