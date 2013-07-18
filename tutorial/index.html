@@ -17,9 +17,10 @@ import scalikejdbc.config._
 DBs.setupAll
 
 // prepare data
-import models._, misc._
+import models._, utils._
 DBInitializer.run()
-GlobalSettings.sqlFormatter = SQLFormatterSettings("misc.HibernateSQLFormatter")
+GlobalSettings.sqlFormatter = SQLFormatterSettings("utils.HibernateSQLFormatter")
+
 implicit val autoSession = AutoSession
 
 // run snippets

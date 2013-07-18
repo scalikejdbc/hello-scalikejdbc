@@ -1,4 +1,4 @@
-package misc
+package utils
 
 import scalikejdbc._, SQLInterpolation._
 
