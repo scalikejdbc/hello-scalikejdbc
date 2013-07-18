@@ -18,8 +18,8 @@ AppRouter = Backbone.Router.extend
 # --- Programmers ---
 
 Programmer = Backbone.Model.extend
+  initialize: -> @on('sync', -> new ProgrammersView().renew())
   urlRoot: '/programmers'
-
   validate: (attrs, options) ->
     'name is required' unless attrs.name
 
@@ -45,23 +45,6 @@ Programmer = Backbone.Model.extend
       success: (response) => $("#changeCompanyHolder#{@id}").append($('<i class="icon-ok"></i>'))
       error:   (response) => console.log "/programmers/#{@id}/company failure (status: #{response.statusText})"
 
-  sync: (method, model, options) ->
-    switch method
-      when 'create'
-        route = jsRoutes.controllers.Programmers.create()
-        $.ajax
-          url: route.url, type: route.method, data: @attributes,
-          success: (response) => new ProgrammersView().renew()
-          error:   (response) => window.alert "Failed to add a programmer because of #{response.responseText}!"
-      when 'delete'
-        route = jsRoutes.controllers.Programmers.delete(@id)
-        $.ajax
-          url: route.url, type: route.method,
-          success: (response) => new ProgrammersView().renew()
-          error:   (response) => console.log "DELETE /programmers/#{@id} failure (status: #{response.statusText})"
-      else
-        console.log "Programmer.sync [method:#{method}, model:#{model}, options:#{options}]"
-
 Programmers = Backbone.Collection.extend
   model: Programmer
   url: '/programmers'
@@ -79,8 +62,7 @@ ProgrammersView = Backbone.View.extend
 
   addProgrammer: (event) ->
     event.preventDefault()
-    data = { name: $('#newName').val(), companyId: $('#newCompanyId').val() }
-    model = new Programmer(data)
+    model = new Programmer(name: $('#newName').val(), companyId: $('#newCompanyId').val())
     if model.isValid() then model.save()
     else window.alert model.validationError
 
@@ -106,7 +88,7 @@ ProgrammersView = Backbone.View.extend
     if window.confirm("Are you sure?") 
       event.preventDefault()
       id = $(event.currentTarget).data('id')
-      programmers.remove(id)
+      programmers.get(id).destroy()
 
   render: (param) -> 
     @$el.html(_.template($('#main_programmers').html(), param))
@@ -125,27 +107,10 @@ ProgrammersView = Backbone.View.extend
 # --- Companies ---
 
 Company = Backbone.Model.extend
+  initialize: -> @on('sync', -> new CompaniesView().renew())
   urlRoot: '/companies'
-
   validate: (attrs, options) ->
     'name is required' unless attrs.name
-
-  sync: (method, model, options) ->
-    switch method
-      when 'create'
-        route = jsRoutes.controllers.Companies.create()
-        $.ajax
-          url: route.url, type: route.method, data: @attributes,
-          success: (response) -> new CompaniesView().renew()
-          error: (response)   -> window.alert "Failed to add a company because of #{response.responseText}!"
-      when 'delete'
-        route = jsRoutes.controllers.Companies.delete(@id)
-        $.ajax
-          url: route.url, type: route.method,
-          success: (response) => new CompaniesView().renew()
-          error:   (response) => console.log "DELETE /companies/#{@id} failure (status: #{response.statusText})"
-      else
-        console.log "Company.sync [method:#{method}, model:#{model}, options:#{options}]"
 
 Companies = Backbone.Collection.extend
   model: Company
@@ -158,8 +123,7 @@ CompaniesView = Backbone.View.extend
 
   addCompany: (event) ->
     event.preventDefault()
-    data = {name: $('#newName').val()}
-    model = new Company(data)
+    model = new Company(name: $('#newName').val())
     if model.isValid() then model.save()
     else  window.alert(model.validationError)
 
@@ -167,7 +131,7 @@ CompaniesView = Backbone.View.extend
     if window.confirm("Are you sure?")
       event.preventDefault()
       id = $(event.currentTarget).data('id')
-      companies.remove(id)
+      companies.get(id).destroy()
 
   render: (param) -> 
     $('#main').html(@$el.html(_.template($('#main_companies').html(), param)))
@@ -180,27 +144,10 @@ CompaniesView = Backbone.View.extend
 # --- Skills ---
 
 Skill = Backbone.Model.extend
+  initialize: -> @on('sync', -> new SkillsView().renew())
   urlRoot: '/skills'
-
   validate: (attrs, options) ->
     'name is required' unless attrs.name
-
-  sync: (method, model, options) ->
-    switch method
-      when 'create'
-        route = jsRoutes.controllers.Skills.create()
-        $.ajax
-          url: route.url, type: route.method, data: @attributes,
-          success: (response) -> new SkillsView().renew()
-          error: (response) -> window.alert "Failed to add a skill because of #{response.responseText}!"
-      when 'delete'
-        route = jsRoutes.controllers.Skills.delete(@id)
-        $.ajax
-          url: route.url, type: route.method,
-          success: (response) => new SkillsView().renew()
-          error:   (response) => console.log "DELETE /skills/#{@id} failure (status: #{response.statusText})"
-      else
-        console.log "Company.sync [method:#{method}, model:#{model}, options:#{options}]"
 
 Skills = Backbone.Collection.extend
   model: Skill
@@ -213,8 +160,7 @@ SkillsView = Backbone.View.extend
 
   addSkill: (event) ->
     event.preventDefault()
-    data = {name: $('#newName').val()}
-    model = new Skill(data)
+    model = new Skill(name: $('#newName').val())
     if model.isValid() then model.save()
     else window.alert model.validationError
 
@@ -222,7 +168,7 @@ SkillsView = Backbone.View.extend
     if window.confirm("Are you sure?")
       event.preventDefault()
       id = $(event.currentTarget).data('id')
-      skills.remove(id)
+      skills.get(id).destroy()
 
   render: (param) -> 
     $('#main').html(@$el.html(_.template($('#main_skills').html(), param)))
@@ -232,16 +178,12 @@ SkillsView = Backbone.View.extend
       success: (skills) -> new SkillsView().render({skills: skills})
       error: (response) -> console.log "GET /skills failure (status: #{response.statusText})"
 
+
 # --- Initialize ---
 
 programmers = new Programmers()
-programmers.on('remove', (model, col, options) -> model.destroy())
-
 companies = new Companies()
-companies.on('remove', (model, col, options) -> model.destroy())
-
 skills = new Skills()
-skills.on('remove', (model, col, options) -> model.destroy())
 
 $ ->
   appRouter = new AppRouter()
