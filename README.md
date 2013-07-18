@@ -1,6 +1,8 @@
 # Hello ScalikeJDBC!
 
-This is a template for [Typesafe Activator](http://typesafe.com/platform/getstarted) for ScalikeJDBC beginners.
+This is a [Typesafe Activator](http://typesafe.com/platform/getstarted) template for ScalikeJDBC beginners.
+
+http://typesafe.com/activator/template/scalikejdbc-activator-template
 
 ![screenshot](https://raw.github.com/seratch/hello-scalikejdbc/master/screenshot.png)
 
