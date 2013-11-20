@@ -4,11 +4,11 @@ This is a [Typesafe Activator](http://typesafe.com/platform/getstarted) template
 
 http://typesafe.com/activator/template/scalikejdbc-activator-template
 
-![screenshot](https://raw.github.com/seratch/hello-scalikejdbc/master/screenshot.png)
+![screenshot](https://raw.github.com/scalikejdbc/hello-scalikejdbc/master/screenshot.png)
 
 ## ScalikeJDBC
 
-https://github.com/seratch/scalikejdbc
+https://github.com/scalikejdbc/scalikejdbc
 
 A tidy SQL-based DB access library for Scala developers. This library naturally wraps JDBC APIs and provides you easy-to-use APIs.
 
