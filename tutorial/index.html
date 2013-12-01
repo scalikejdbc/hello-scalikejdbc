@@ -25,7 +25,7 @@ implicit val autoSession = AutoSession
 
 // run snippets
 val c = Company.syntax("c")
-val companies = List[Company] = withSQL {
+val companies: List[Company] = withSQL {
   select.from(Company as c).where.isNull(c.deletedAt).orderBy(c.id)
 }.map(Company(c)).list.apply()
 </code></pre>
