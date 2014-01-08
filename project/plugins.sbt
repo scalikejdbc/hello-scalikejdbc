@@ -5,11 +5,11 @@ resolvers ++= Seq(
 
 libraryDependencies += "com.h2database" % "h2" % "[1.3,)"
 
-addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "1.7.0")
+addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "1.7.3")
 
 logLevel := Level.Warn
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.1")
 
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "[0.1,)")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.2")
 

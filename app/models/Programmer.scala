@@ -60,7 +60,6 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
   val p = Programmer.syntax("p")
 
   private val (c, s, ps) = (Company.c, Skill.s, ProgrammerSkill.ps)
-  private val autoSession = AutoSession
 
   // reusable part of SQL
   private val isNotDeleted = sqls.isNull(p.deletedAt)

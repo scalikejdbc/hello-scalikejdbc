@@ -26,7 +26,6 @@ object Company extends SQLSyntaxSupport[Company] {
   )
 
   val c = Company.syntax("c")
-  private val autoSession = AutoSession
   private val isNotDeleted = sqls.isNull(c.deletedAt)
 
   def find(id: Long)(implicit session: DBSession = autoSession): Option[Company] = withSQL {

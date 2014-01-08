@@ -27,7 +27,6 @@ object Skill extends SQLSyntaxSupport[Skill] {
 
   val s = Skill.syntax("s")
 
-  private val autoSession = AutoSession
   private val isNotDeleted = sqls.isNull(s.deletedAt)
 
   def find(id: Long)(implicit session: DBSession = autoSession): Option[Skill] = withSQL {
