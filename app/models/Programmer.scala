@@ -1,6 +1,6 @@
 package models
 
-import scalikejdbc._, SQLInterpolation._
+import scalikejdbc._
 import org.joda.time.DateTime
 
 case class Programmer(
@@ -42,11 +42,11 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
   // simple extractor
   def apply(p: SyntaxProvider[Programmer])(rs: WrappedResultSet): Programmer = apply(p.resultName)(rs)
   def apply(p: ResultName[Programmer])(rs: WrappedResultSet): Programmer = new Programmer(
-    id = rs.long(p.id),
-    name = rs.string(p.name),
-    companyId = rs.longOpt(p.companyId),
-    createdAt = rs.timestamp(p.createdAt).toDateTime,
-    deletedAt = rs.timestampOpt(p.deletedAt).map(_.toDateTime)
+    id = rs.get(p.id),
+    name = rs.get(p.name),
+    companyId = rs.get(p.companyId),
+    createdAt = rs.get(p.createdAt),
+    deletedAt = rs.get(p.deletedAt)
   )
 
   // join query with company table

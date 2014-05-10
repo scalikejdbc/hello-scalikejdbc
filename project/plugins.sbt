@@ -3,13 +3,13 @@ resolvers ++= Seq(
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 )
 
-libraryDependencies += "com.h2database" % "h2" % "[1.3,)"
+libraryDependencies += "com.h2database" % "h2" % "1.4.178"
 
-addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "1.7.3")
+addSbtPlugin("org.scalikejdbc" %% "scalikejdbc-mapper-generator" % "2.0.0")
 
 logLevel := Level.Warn
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.1")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.3")
 
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.2")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.5")
 

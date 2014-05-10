@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <title>Hello ScalikeJDBC!</title>
 
-<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
-<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap-responsive.min.css"))'>
-<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+<link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css'>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
 <style type="text/css"> body { padding-top: 60px; } </style>
 </head>
 <body>
@@ -33,10 +32,10 @@
   </div>
 </div>
 
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js'></script>
+<script type='text/javascript' src='//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js'></script>
 <script type="text/javascript" src="@routes.JsRouter.javascriptRoutes"></script>
-<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("underscore.min.js"))'></script>
-<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("backbone.min.js"))'></script>
-<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
 
 <script type="text/template" id="main_programmers">
@@ -99,7 +98,7 @@
     </select>
   </td>
   <td></td>
-  <td><input type="submit" class="btn btn-primary" value="Add" /></td>
+  <td><input type="submit" class="btn btn-primary addProgrammerSubmit" value="Add" /></td>
   </form>
 </tr>
 </tbody>

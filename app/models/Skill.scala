@@ -1,6 +1,6 @@
 package models
 
-import scalikejdbc._, SQLInterpolation._
+import scalikejdbc._
 import org.joda.time.DateTime
 
 case class Skill(
@@ -17,10 +17,10 @@ object Skill extends SQLSyntaxSupport[Skill] {
 
   def apply(s: SyntaxProvider[Skill])(rs: WrappedResultSet): Skill = apply(s.resultName)(rs)
   def apply(s: ResultName[Skill])(rs: WrappedResultSet): Skill = new Skill(
-    id = rs.long(s.id),
-    name = rs.string(s.name),
-    createdAt = rs.timestamp(s.createdAt).toDateTime,
-    deletedAt = rs.timestampOpt(s.deletedAt).map(_.toDateTime)
+    id = rs.get(s.id),
+    name = rs.get(s.name),
+    createdAt = rs.get(s.createdAt),
+    deletedAt = rs.get(s.deletedAt)
   )
 
   def opt(s: SyntaxProvider[Skill])(rs: WrappedResultSet): Option[Skill] = rs.longOpt(s.resultName.id).map(_ => apply(s.resultName)(rs))

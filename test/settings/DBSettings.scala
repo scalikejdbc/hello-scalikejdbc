@@ -1,6 +1,6 @@
 package settings
 
-import scalikejdbc._, config._, SQLInterpolation._
+import scalikejdbc._, config._
 
 trait DBSettings {
   DBSettings.initialize()

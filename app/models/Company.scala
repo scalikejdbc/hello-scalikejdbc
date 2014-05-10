@@ -1,6 +1,6 @@
 package models
 
-import scalikejdbc._, SQLInterpolation._
+import scalikejdbc._
 import org.joda.time.DateTime
 
 case class Company(
@@ -18,11 +18,11 @@ object Company extends SQLSyntaxSupport[Company] {
 
   def apply(c: SyntaxProvider[Company])(rs: WrappedResultSet): Company = apply(c.resultName)(rs)
   def apply(c: ResultName[Company])(rs: WrappedResultSet): Company = new Company(
-    id = rs.long(c.id),
-    name = rs.string(c.name),
-    url = rs.stringOpt(c.url),
-    createdAt = rs.timestamp(c.createdAt).toDateTime,
-    deletedAt = rs.timestampOpt(c.deletedAt).map(_.toDateTime)
+    id = rs.get(c.id),
+    name = rs.get(c.name),
+    url = rs.get(c.url),
+    createdAt = rs.get(c.createdAt),
+    deletedAt = rs.get(c.deletedAt)
   )
 
   val c = Company.syntax("c")
