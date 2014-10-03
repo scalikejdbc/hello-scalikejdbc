@@ -32,6 +32,7 @@ object Skills extends Controller with Json4s {
       form => {
         val skill = Skill.create(name = form.name)
         Created.withHeaders(LOCATION -> s"/skills/${skill.id}")
+        NoContent
       }
     )
   }
