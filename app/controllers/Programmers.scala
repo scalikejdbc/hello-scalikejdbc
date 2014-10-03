@@ -35,6 +35,7 @@ object Programmers extends Controller with Json4s {
       form => {
         val programmer = Programmer.create(name = form.name, companyId = form.companyId)
         Created.withHeaders(LOCATION -> s"/programmers/${programmer.id}")
+        NoContent
       }
     )
   }

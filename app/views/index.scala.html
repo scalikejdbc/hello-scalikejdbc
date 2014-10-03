@@ -40,6 +40,25 @@
 
 <script type="text/template" id="main_programmers">
 <h3>Programmers</h3>
+<form class="addProgrammer" method="post">
+  <table>
+    <tbody>
+      <tr>
+        <td><input type="text" id="newName" name="name"/></td>
+        <td>
+          <select id="newCompanyId" name="companyId">
+          <option value="">-</option>
+          <% companies.each(function(company) { %>
+            <option value="<%= company.get("id") %>"><%= company.get("name") %></option>
+          <% }); %>
+          </select>
+        </td>
+        <td></td>
+        <td><input type="submit" class="btn btn-primary addProgrammerSubmit" value="Add" /></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
 <table class="table table-bordered table-condensed">
 <thead>
 <tr>
@@ -84,29 +103,20 @@
     </td>
   </tr>
 <% }); %>
-<tr>
-  <form class="addProgrammer" method="post">
-  <td></td>
-  <td><input type="text" id="newName" name="name"/></td>
-  <td></td>
-  <td>
-    <select id="newCompanyId" name="companyId">
-    <option value="">-</option>
-    <% companies.each(function(company) { %>
-      <option value="<%= company.get("id") %>"><%= company.get("name") %></option>
-    <% }); %>
-    </select>
-  </td>
-  <td></td>
-  <td><input type="submit" class="btn btn-primary addProgrammerSubmit" value="Add" /></td>
-  </form>
-</tr>
 </tbody>
 </table>
 </script>
 
 <script type="text/template" id="main_companies">
 <h3>Companies</h3>
+<form class="addCompany" method="post">
+  <table>
+    <tbody>
+      <td><input type="text" id="newName" name="name"/></td>
+      <td><input type="submit" class="btn btn-primary" value="Add" /></td>
+    </tbody>
+  </table>
+</form>
 <table class="table table-bordered table-condensed">
 <thead>
 <tr>
@@ -125,20 +135,22 @@
     <td><button data-id="<%= company.get("id") %>" class="btn btn-danger deleteCompany">Delete</button></td>
   </tr>
 <% }); %>
-<tr>
-  <form class="addCompany" method="post">
-  <td></td>
-  <td><input type="text" id="newName" name="name"/></td>
-  <td></td>
-  <td><input type="submit" class="btn btn-primary" value="Add" /></td>
-  </form>
-</tr>
 </tbody>
 </table>
 </script>
 
 <script type="text/template" id="main_skills">
 <h3>Skills</h3>
+<form class="addSkill" method="post">
+  <table>
+    <tbody>
+      <td></td>
+      <td><input type="text" id="newName" name="name"/></td>
+      <td></td>
+      <td><input type="submit" class="btn btn-primary" value="Add" /></td>
+    </tbody>
+  </table>
+</form>
 <table class="table table-bordered table-condensed">
 <thead>
 <tr>
@@ -157,14 +169,6 @@
     <td><button data-id="<%= skill.get("id") %>" class="btn btn-danger deleteSkill">Delete</button></td>
   </tr>
 <% }); %>
-<tr>
-  <form class="addSkill" method="post">
-  <td></td>
-  <td><input type="text" id="newName" name="name"/></td>
-  <td></td>
-  <td><input type="submit" class="btn btn-primary" value="Add" /></td>
-  </form>
-</tr>
 </tbody>
 </table>
 </script>

@@ -35,6 +35,7 @@ object Companies extends Controller with Json4s {
       form => {
         val company = Company.create(name = form.name, url = form.url)
         Created.withHeaders(LOCATION -> s"/companies/${company.id}")
+        NoContent
       }
     )
   }
