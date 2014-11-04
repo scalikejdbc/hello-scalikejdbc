@@ -7,18 +7,18 @@ name := "hello-scalikejdbc"
 
 version := "0.1"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.4"
 
-lazy val scalikejdbcVersion = "2.1.2"
+lazy val scalikejdbcVersion = "2.1.4"
 
-lazy val h2Version = "1.4.181"
+lazy val h2Version = "1.4.182"
 
 libraryDependencies ++= Seq(
   "org.scalikejdbc"      %% "scalikejdbc"                     % scalikejdbcVersion,
   "org.scalikejdbc"      %% "scalikejdbc-config"              % scalikejdbcVersion,
   "org.scalikejdbc"      %% "scalikejdbc-interpolation"       % scalikejdbcVersion,
-  "org.scalikejdbc"      %% "scalikejdbc-play-plugin"         % "2.3.2",
-  "org.scalikejdbc"      %% "scalikejdbc-play-fixture-plugin" % "2.3.2",
+  "org.scalikejdbc"      %% "scalikejdbc-play-plugin"         % "2.3.3",
+  "org.scalikejdbc"      %% "scalikejdbc-play-fixture-plugin" % "2.3.3",
   "com.h2database"       %  "h2"                              % h2Version,
   "org.hibernate"        %  "hibernate-core"                  % "4.2.3.Final",
   "org.json4s"           %% "json4s-ext"                      % "3.2.10",
@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
 )
 
 initialCommands := """
-import scalikejdbc._,config._,SQLInterpolation._
+import scalikejdbc._, config._
 import models._, utils._
 DBs.setupAll
 DBInitializer.run()
