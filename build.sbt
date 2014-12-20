@@ -9,14 +9,13 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "org.scalikejdbc"      %% "scalikejdbc"                     % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-config"              % scalikejdbcVersion,
-      "org.scalikejdbc"      %% "scalikejdbc-interpolation"       % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-play-plugin"         % scalikejdbcPlayVersion,
       "org.scalikejdbc"      %% "scalikejdbc-play-fixture-plugin" % scalikejdbcPlayVersion,
       "com.h2database"       %  "h2"                              % h2Version,
-      "org.hibernate"        %  "hibernate-core"                  % "4.2.3.Final",
+      "org.hibernate"        %  "hibernate-core"                  % "4.3.7.Final",
       "org.json4s"           %% "json4s-ext"                      % "3.2.11",
       "com.github.tototoshi" %% "play-json4s-native"              % "0.3.0",
-      "com.github.tototoshi" %% "play-flyway"                     % "1.1.2",
+      "com.github.tototoshi" %% "play-flyway"                     % "1.2.0",
       "org.scalikejdbc"      %% "scalikejdbc-test"                % scalikejdbcVersion  % "test"
     ),
     initialCommands := """
@@ -30,7 +29,7 @@ lazy val root = (project in file("."))
   )
   .settings(scalikejdbcSettings:_*) // http://scalikejdbc.org/documentation/setup.html
 
-lazy val scalikejdbcVersion = "2.2.0"
-lazy val scalikejdbcPlayVersion = "2.3.4"
-lazy val h2Version = "1.4.182"
+lazy val scalikejdbcVersion = "2.2.+"
+lazy val scalikejdbcPlayVersion = "2.3.+"
+lazy val h2Version = "1.4.+"
 
