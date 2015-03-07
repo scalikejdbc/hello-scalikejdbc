@@ -4,7 +4,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "hello-scalikejdbc",
     version := "0.1",
-    scalaVersion := "2.11.5",
+    scalaVersion := "2.11.6",
     resolvers += "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
     libraryDependencies ++= Seq(
       "org.scalikejdbc"      %% "scalikejdbc"                     % scalikejdbcVersion,
