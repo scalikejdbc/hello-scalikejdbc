@@ -1,14 +1,15 @@
 package controllers
 
-import play.api._, mvc._
-import play.api.data._, Forms._, validation.Constraints._
-
-import org.json4s._, ext.JodaTimeSerializers, native.JsonMethods._
 import com.github.tototoshi.play2.json4s.native._
-
 import models._
+import org.json4s._
+import org.json4s.ext.JodaTimeSerializers
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation.Constraints._
+import play.api.mvc._
 
-object Programmers extends Controller with Json4s {
+class Programmers extends Controller with Json4s {
 
   implicit val formats = DefaultFormats ++ JodaTimeSerializers.all
 
@@ -25,7 +26,7 @@ object Programmers extends Controller with Json4s {
   private val programmerForm = Form(
     mapping(
       "name" -> text.verifying(nonEmpty),
-      "companyId" -> optional(longNumber) 
+      "companyId" -> optional(longNumber)
     )(ProgrammerForm.apply)(ProgrammerForm.unapply)
   )
 
@@ -43,15 +44,17 @@ object Programmers extends Controller with Json4s {
   def addSkill(programmerId: Long, skillId: Long) = Action {
     Programmer.find(programmerId).map { programmer =>
       try {
-        Skill.find(skillId).map(skill => programmer.addSkill(skill))
+        Skill.find(skillId).foreach(programmer.addSkill)
         Ok
-      } catch { case e: Exception => Conflict }
+      } catch {
+        case e: Exception => Conflict
+      }
     } getOrElse NotFound
   }
 
   def deleteSkill(programmerId: Long, skillId: Long) = Action {
     Programmer.find(programmerId).map { programmer =>
-      Skill.find(skillId).map(skill => programmer.deleteSkill(skill))
+      Skill.find(skillId).foreach(programmer.deleteSkill)
       Ok
     } getOrElse NotFound
   }
