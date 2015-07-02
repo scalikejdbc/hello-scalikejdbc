@@ -44,7 +44,7 @@ class Programmers extends Controller with Json4s {
   def addSkill(programmerId: Long, skillId: Long) = Action {
     Programmer.find(programmerId).map { programmer =>
       try {
-        Skill.find(skillId).map(skill => programmer.addSkill(skill))
+        Skill.find(skillId).foreach(programmer.addSkill)
         Ok
       } catch {
         case e: Exception => Conflict
@@ -54,7 +54,7 @@ class Programmers extends Controller with Json4s {
 
   def deleteSkill(programmerId: Long, skillId: Long) = Action {
     Programmer.find(programmerId).map { programmer =>
-      Skill.find(skillId).map(skill => programmer.deleteSkill(skill))
+      Skill.find(skillId).foreach(programmer.deleteSkill)
       Ok
     } getOrElse NotFound
   }
