@@ -4,7 +4,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "hello-scalikejdbc",
     version := "0.1",
-    scalaVersion := "2.11.6",
+    scalaVersion := "2.11.7",
     resolvers += "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
     libraryDependencies ++= Seq(
       "org.scalikejdbc"      %% "scalikejdbc"                     % scalikejdbcVersion,
@@ -25,9 +25,9 @@ lazy val root = (project in file("."))
       DBInitializer.run()
       implicit val autoSession = AutoSession
       val (p, c, s, ps) = (Programmer.syntax("p"), Company.syntax("c"), Skill.syntax("s"), ProgrammerSkill.syntax("ps"))
-    """
+    """,
+    scalikejdbcSettings // http://scalikejdbc.org/documentation/setup.html
   )
-  .settings(scalikejdbcSettings:_*) // http://scalikejdbc.org/documentation/setup.html
 
 lazy val scalikejdbcVersion = "2.2.+"
 lazy val scalikejdbcPlayVersion = "2.3.+"
