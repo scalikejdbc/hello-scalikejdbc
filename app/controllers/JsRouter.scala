@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 import play.api.routing._
 
-object JsRouter extends Controller {
+class JsRouter extends Controller {
 
   def javascriptRoutes = Action { implicit request =>
     import routes.javascript._

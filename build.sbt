@@ -31,6 +31,7 @@ lazy val root = (project in file("."))
       implicit val autoSession = AutoSession
       val (p, c, s, ps) = (Programmer.syntax("p"), Company.syntax("c"), Skill.syntax("s"), ProgrammerSkill.syntax("ps"))
     """,
+    routesGenerator := InjectedRoutesGenerator,
     scalikejdbcSettings // http://scalikejdbc.org/documentation/setup.html
   )
 

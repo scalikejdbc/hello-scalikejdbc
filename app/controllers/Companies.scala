@@ -1,14 +1,15 @@
 package controllers
 
-import play.api._, mvc._
-import play.api.data._, Forms._, validation.Constraints._
-
-import org.json4s._, ext.JodaTimeSerializers, native.JsonMethods._
 import com.github.tototoshi.play2.json4s.native._
-
 import models._
+import org.json4s._
+import org.json4s.ext.JodaTimeSerializers
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation.Constraints._
+import play.api.mvc._
 
-object Companies extends Controller with Json4s {
+class Companies extends Controller with Json4s {
 
   implicit val formats = DefaultFormats ++ JodaTimeSerializers.all
 
@@ -25,7 +26,7 @@ object Companies extends Controller with Json4s {
   private val companyForm = Form(
     mapping(
       "name" -> text.verifying(nonEmpty),
-      "url"  -> optional(text)
+      "url" -> optional(text)
     )(CompanyForm.apply)(CompanyForm.unapply)
   )
 
