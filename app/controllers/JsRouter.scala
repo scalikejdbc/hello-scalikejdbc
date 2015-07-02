@@ -1,13 +1,14 @@
 package controllers
 
-import play.api._, mvc._
+import play.api.mvc._
+import play.api.routing._
 
 object JsRouter extends Controller {
 
   def javascriptRoutes = Action { implicit request =>
     import routes.javascript._
     Ok(
-      Routes.javascriptRouter("jsRoutes")(
+      JavaScriptReverseRouter("jsRoutes")(
         Companies.all,
         Companies.show,
         Companies.create,
