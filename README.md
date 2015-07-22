@@ -22,7 +22,7 @@ Built on Akka, Play provides predictable and minimal resource consumption (CPU, 
 
 ### play-flyway
 
-https://github.com/tototoshi/play-flyway
+https://github.com/flyway/flyway-play
 
 Flyway plugin for Play2. It aims to be a substitute for play-evolutions.
 
