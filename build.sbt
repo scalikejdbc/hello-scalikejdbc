@@ -15,10 +15,10 @@ lazy val root = (project in file("."))
       "org.scalikejdbc"      %% "scalikejdbc-play-initializer"  % scalikejdbcPlayVersion,
       "org.scalikejdbc"      %% "scalikejdbc-play-fixture"      % scalikejdbcPlayVersion,
       "com.h2database"       %  "h2"                            % h2Version,
-      "org.hibernate"        %  "hibernate-core"                % "4.3.10.Final",
+      "org.hibernate"        %  "hibernate-core"                % "4.3.11.Final",
       "org.json4s"           %% "json4s-ext"                    % "3.3.0",
       "com.github.tototoshi" %% "play-json4s-native"            % "0.4.2",
-      "org.flywaydb"         %% "flyway-play"                   % "2.2.0",
+      "org.flywaydb"         %% "flyway-play"                   % "2.2.1",
       "org.scalikejdbc"      %% "scalikejdbc-test"              % scalikejdbcVersion  % "test",
       specs2 % "test"
     ),
@@ -34,7 +34,7 @@ lazy val root = (project in file("."))
     scalikejdbcSettings // http://scalikejdbc.org/documentation/setup.html
   )
 
-lazy val scalikejdbcVersion = "2.2.+"
+lazy val scalikejdbcVersion = scalikejdbc.ScalikejdbcBuildInfo.version
 lazy val scalikejdbcPlayVersion = "2.4.+"
 lazy val h2Version = "1.4.+"
 
