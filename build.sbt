@@ -9,6 +9,8 @@ lazy val root = (project in file("."))
       "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
       "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
     ),
+    // https://github.com/sbt/sbt/issues/2217
+    fullResolvers ~= { _.filterNot(_.name == "jcenter") },
     libraryDependencies ++= Seq(
       "org.scalikejdbc"      %% "scalikejdbc"                   % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-config"            % scalikejdbcVersion,
