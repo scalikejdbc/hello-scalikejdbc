@@ -7,7 +7,8 @@ case class Skill(
     id: Long,
     name: String,
     createdAt: DateTime,
-    deletedAt: Option[DateTime] = None) {
+    deletedAt: Option[DateTime] = None
+) {
 
   def save()(implicit session: DBSession = Skill.autoSession): Skill = Skill.save(this)(session)
   def destroy()(implicit session: DBSession = Skill.autoSession): Unit = Skill.destroy(id)(session)

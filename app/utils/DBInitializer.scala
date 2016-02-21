@@ -1,6 +1,6 @@
 package utils
 
-import scalikejdbc._, SQLInterpolation._
+import scalikejdbc._
 
 object DBInitializer {
 

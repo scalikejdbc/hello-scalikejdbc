@@ -3,7 +3,7 @@ package models
 import scalikejdbc.specs2.mutable.AutoRollback
 import org.specs2.mutable._
 import org.joda.time._
-import scalikejdbc._, SQLInterpolation._
+import scalikejdbc._
 
 class CompanySpec extends Specification with settings.DBSettings {
 

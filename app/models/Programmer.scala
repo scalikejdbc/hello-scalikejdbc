@@ -10,7 +10,8 @@ case class Programmer(
     company: Option[Company] = None,
     skills: Seq[Skill] = Nil,
     createdAt: DateTime,
-    deletedAt: Option[DateTime] = None) {
+    deletedAt: Option[DateTime] = None
+) {
 
   def save()(implicit session: DBSession = Programmer.autoSession): Programmer = Programmer.save(this)(session)
   def destroy()(implicit session: DBSession = Programmer.autoSession): Unit = Programmer.destroy(id)(session)
@@ -126,9 +127,10 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
     }
     val id = withSQL {
       insert.into(Programmer).namedValues(
-        column.name -> name, 
-        column.companyId -> companyId, 
-        column.createdAt -> createdAt)
+        column.name -> name,
+        column.companyId -> companyId,
+        column.createdAt -> createdAt
+      )
     }.updateAndReturnGeneratedKey.apply()
 
     Programmer(
@@ -136,13 +138,14 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
       name = name,
       companyId = companyId,
       company = companyId.flatMap(id => Company.find(id)),
-      createdAt = createdAt)
+      createdAt = createdAt
+    )
   }
 
   def save(m: Programmer)(implicit session: DBSession = autoSession): Programmer = {
     withSQL {
       update(Programmer).set(
-        column.name -> m.name, 
+        column.name -> m.name,
         column.companyId -> m.companyId
       ).where.eq(column.id, m.id).and.isNull(column.deletedAt)
     }.update.apply()

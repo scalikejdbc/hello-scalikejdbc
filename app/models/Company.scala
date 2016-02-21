@@ -8,7 +8,8 @@ case class Company(
     name: String,
     url: Option[String] = None,
     createdAt: DateTime,
-    deletedAt: Option[DateTime] = None) {
+    deletedAt: Option[DateTime] = None
+) {
 
   def save()(implicit session: DBSession = Company.autoSession): Company = Company.save(this)(session)
   def destroy()(implicit session: DBSession = Company.autoSession): Unit = Company.destroy(id)(session)
@@ -55,9 +56,10 @@ object Company extends SQLSyntaxSupport[Company] {
   def create(name: String, url: Option[String] = None, createdAt: DateTime = DateTime.now)(implicit session: DBSession = autoSession): Company = {
     val id = withSQL {
       insert.into(Company).namedValues(
-        column.name -> name, 
-        column.url -> url, 
-        column.createdAt -> createdAt)
+        column.name -> name,
+        column.url -> url,
+        column.createdAt -> createdAt
+      )
     }.updateAndReturnGeneratedKey.apply()
 
     Company(id = id, name = name, url = url, createdAt = createdAt)
@@ -66,7 +68,7 @@ object Company extends SQLSyntaxSupport[Company] {
   def save(m: Company)(implicit session: DBSession = autoSession): Company = {
     withSQL {
       update(Company).set(
-        column.name -> m.name, 
+        column.name -> m.name,
         column.url -> m.url
       ).where.eq(column.id, m.id).and.isNull(column.deletedAt)
     }.update.apply()

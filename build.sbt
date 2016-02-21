@@ -17,7 +17,6 @@ lazy val root = (project in file("."))
       "org.scalikejdbc"      %% "scalikejdbc-play-initializer"  % scalikejdbcPlayVersion,
       "org.scalikejdbc"      %% "scalikejdbc-play-fixture"      % scalikejdbcPlayVersion,
       "com.h2database"       %  "h2"                            % h2Version,
-      "org.hibernate"        %  "hibernate-core"                % "4.3.11.Final",
       "org.json4s"           %% "json4s-ext"                    % "3.3.0",
       "com.github.tototoshi" %% "play-json4s-native"            % "0.4.2",
       "org.flywaydb"         %% "flyway-play"                   % "2.2.1",
@@ -34,7 +33,7 @@ lazy val root = (project in file("."))
     """,
     routesGenerator := InjectedRoutesGenerator,
     scalikejdbcSettings // http://scalikejdbc.org/documentation/setup.html
-  )
+  ).settings(scalariformSettings)
 
 lazy val scalikejdbcVersion = scalikejdbc.ScalikejdbcBuildInfo.version
 lazy val scalikejdbcPlayVersion = "2.4.+"
