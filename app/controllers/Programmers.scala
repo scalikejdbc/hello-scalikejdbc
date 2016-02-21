@@ -18,7 +18,10 @@ class Programmers extends Controller with Json4s {
   }
 
   def show(id: Long) = Action {
-    Programmer.find(id).map(programmer => Ok(Extraction.decompose(programmer))) getOrElse NotFound
+    Programmer.find(id) match {
+      case Some(programmer) => Ok(Extraction.decompose(programmer))
+      case _ => NotFound
+    }
   }
 
   case class ProgrammerForm(name: String, companyId: Option[Long] = None)
@@ -42,44 +45,54 @@ class Programmers extends Controller with Json4s {
   }
 
   def addSkill(programmerId: Long, skillId: Long) = Action {
-    Programmer.find(programmerId).map { programmer =>
-      try {
-        Skill.find(skillId).foreach(programmer.addSkill)
-        Ok
-      } catch {
-        case e: Exception => Conflict
-      }
-    } getOrElse NotFound
+    Programmer.find(programmerId) match {
+      case Some(programmer) =>
+        try {
+          Skill.find(skillId).foreach(programmer.addSkill)
+          Ok
+        } catch { case scala.util.control.NonFatal(e) => Conflict }
+      case _ => NotFound
+    }
   }
 
   def deleteSkill(programmerId: Long, skillId: Long) = Action {
-    Programmer.find(programmerId).map { programmer =>
-      Skill.find(skillId).foreach(programmer.deleteSkill)
-      Ok
-    } getOrElse NotFound
+    Programmer.find(programmerId) match {
+      case Some(programmer) =>
+        Skill.find(skillId).foreach(programmer.deleteSkill)
+        Ok
+      case _ => NotFound
+    }
   }
 
   def joinCompany(programmerId: Long, companyId: Long) = Action {
-    Company.find(companyId).map { company =>
-      Programmer.find(programmerId).map { programmer =>
-        programmer.copy(companyId = Some(company.id)).save()
-        Ok
-      } getOrElse BadRequest("Programmer not found!")
-    } getOrElse BadRequest("Company not found!")
+    Company.find(companyId) match {
+      case Some(company) =>
+        Programmer.find(programmerId) match {
+          case Some(programmer) =>
+            programmer.copy(companyId = Some(company.id)).save()
+            Ok
+          case _ => BadRequest("Programmer not found!")
+        }
+      case _ => BadRequest("Company not found!")
+    }
   }
 
   def leaveCompany(programmerId: Long) = Action {
-    Programmer.find(programmerId).map { programmer =>
-      programmer.copy(companyId = None).save()
-      Ok
-    } getOrElse BadRequest("Programmer not found!")
+    Programmer.find(programmerId) match {
+      case Some(programmer) =>
+        programmer.copy(companyId = None).save()
+        Ok
+      case _ => BadRequest("Programmer not found!")
+    }
   }
 
   def delete(id: Long) = Action {
-    Programmer.find(id).map { programmer =>
-      programmer.destroy()
-      NoContent
-    } getOrElse NotFound
+    Programmer.find(id) match {
+      case Some(programmer) =>
+        programmer.destroy()
+        NoContent
+      case _ => NotFound
+    }
   }
 
 }

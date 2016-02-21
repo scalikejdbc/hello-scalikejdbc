@@ -18,7 +18,10 @@ class Skills extends Controller with Json4s {
   }
 
   def show(id: Long) = Action {
-    Skill.find(id).map(skill => Ok(Extraction.decompose(skill))) getOrElse NotFound
+    Skill.find(id) match {
+      case Some(skill) => Ok(Extraction.decompose(skill))
+      case _ => NotFound
+    }
   }
 
   case class SkillForm(name: String)
@@ -39,10 +42,12 @@ class Skills extends Controller with Json4s {
   }
 
   def delete(id: Long) = Action {
-    Skill.find(id).map { skill =>
-      skill.destroy()
-      NoContent
-    } getOrElse NotFound
+    Skill.find(id) match {
+      case Some(skill) =>
+        skill.destroy()
+        NoContent
+      case _ => NotFound
+    }
   }
 
 }

@@ -18,7 +18,10 @@ class Companies extends Controller with Json4s {
   }
 
   def show(id: Long) = Action {
-    Company.find(id).map { company => Ok(Extraction.decompose(company)) } getOrElse NotFound
+    Company.find(id) match {
+      case Some(company) => Ok(Extraction.decompose(company))
+      case _ => NotFound
+    }
   }
 
   case class CompanyForm(name: String, url: Option[String] = None)
@@ -42,10 +45,12 @@ class Companies extends Controller with Json4s {
   }
 
   def delete(id: Long) = Action {
-    Company.find(id).map { company =>
-      company.destroy()
-      NoContent
-    } getOrElse NotFound
+    Company.find(id) match {
+      case Some(company) =>
+        company.destroy()
+        NoContent
+      case _ => NotFound
+    }
   }
 
 }
