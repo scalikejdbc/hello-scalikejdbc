@@ -1,7 +1,6 @@
 package modules
 
 import javax.inject._
-import scalikejdbc._
 
 @Singleton
 class Global {
