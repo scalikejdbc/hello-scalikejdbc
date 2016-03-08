@@ -36,6 +36,7 @@ lazy val root = (project in file("."))
   ).settings(scalariformSettings)
 
 lazy val scalikejdbcVersion = scalikejdbc.ScalikejdbcBuildInfo.version
+// TODO: waiting for play-json4s 2.5
 lazy val scalikejdbcPlayVersion = "2.4.+"
 lazy val h2Version = "1.4.+"
 

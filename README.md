@@ -1,8 +1,8 @@
 # Hello ScalikeJDBC!
 
-This is a [Typesafe Activator](http://typesafe.com/platform/getstarted) template for ScalikeJDBC beginners.
+This is a [Lightbend Activator](http://www.lightbend.com/activator/) template for ScalikeJDBC beginners.
 
-http://typesafe.com/activator/template/scalikejdbc-activator-template
+http://www.lightbend.com/activator/template/scalikejdbc-activator-template
 
 ![screenshot](https://raw.github.com/scalikejdbc/hello-scalikejdbc/master/screenshot.png)
 
@@ -14,7 +14,7 @@ A tidy SQL-based DB access library for Scala developers. This library naturally 
 
 ## Play Framework 2.x
 
-http://www.playframework.com/
+https://www.playframework.com/
 
 Play Framework makes it easy to build web applications with Java & Scala. Play is based on a lightweight, stateless, web-friendly architecture.
 
