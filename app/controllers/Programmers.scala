@@ -1,5 +1,6 @@
 package controllers
 
+import javax.inject.{ Inject, Singleton }
 import com.github.tototoshi.play2.json4s.native._
 import models._
 import org.json4s._
@@ -9,8 +10,10 @@ import play.api.data._
 import play.api.data.validation.Constraints._
 import play.api.mvc._
 
-class Programmers extends Controller with Json4s {
+@Singleton
+class Programmers @Inject() (json4s: Json4s) extends Controller {
 
+  import json4s._
   implicit val formats = DefaultFormats ++ JodaTimeSerializers.all
 
   def all = Action {

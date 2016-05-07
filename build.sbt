@@ -4,7 +4,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "hello-scalikejdbc",
     version := "0.1",
-    scalaVersion := "2.11.7",
+    scalaVersion := "2.11.8",
     resolvers ++= Seq(
       "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
       "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
@@ -17,9 +17,9 @@ lazy val root = (project in file("."))
       "org.scalikejdbc"      %% "scalikejdbc-play-initializer"  % scalikejdbcPlayVersion,
       "org.scalikejdbc"      %% "scalikejdbc-play-fixture"      % scalikejdbcPlayVersion,
       "com.h2database"       %  "h2"                            % h2Version,
-      "org.json4s"           %% "json4s-ext"                    % "3.3.0",
-      "com.github.tototoshi" %% "play-json4s-native"            % "0.4.2",
-      "org.flywaydb"         %% "flyway-play"                   % "2.2.1",
+      "org.json4s"           %% "json4s-ext"                    % "3.3.+",
+      "com.github.tototoshi" %% "play-json4s-native"            % "0.5.+",
+      "org.flywaydb"         %% "flyway-play"                   % "3.0.+",
       "org.scalikejdbc"      %% "scalikejdbc-test"              % scalikejdbcVersion  % "test",
       specs2 % "test"
     ),
@@ -36,7 +36,5 @@ lazy val root = (project in file("."))
   ).settings(scalariformSettings)
 
 lazy val scalikejdbcVersion = scalikejdbc.ScalikejdbcBuildInfo.version
-// TODO: waiting for play-json4s 2.5
-lazy val scalikejdbcPlayVersion = "2.4.+"
+lazy val scalikejdbcPlayVersion = "2.5.+"
 lazy val h2Version = "1.4.+"
-
