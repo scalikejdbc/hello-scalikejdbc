@@ -17,7 +17,7 @@ lazy val root = (project in file("."))
       "org.scalikejdbc"      %% "scalikejdbc-play-initializer"  % scalikejdbcPlayVersion,
       "org.scalikejdbc"      %% "scalikejdbc-play-fixture"      % scalikejdbcPlayVersion,
       "com.h2database"       %  "h2"                            % h2Version,
-      "org.json4s"           %% "json4s-ext"                    % "3.3.+",
+      "org.json4s"           %% "json4s-ext"                    % "3.4.+",
       "com.github.tototoshi" %% "play-json4s-native"            % "0.5.+",
       "org.flywaydb"         %% "flyway-play"                   % "3.0.+",
       "org.scalikejdbc"      %% "scalikejdbc-test"              % scalikejdbcVersion  % "test",
