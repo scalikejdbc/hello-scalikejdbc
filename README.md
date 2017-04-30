@@ -1,8 +1,8 @@
 # Hello ScalikeJDBC!
 
-This is a [Lightbend Activator](http://www.lightbend.com/activator/) template for ScalikeJDBC beginners.
+This is an example app to demonstrate how to create a [Play](https://playframework.com/) application using [ScalikeJDBC](http://scalikejdbc.org/) and [play-flyway](https://github.com/flyway/flyway-play).
 
-http://www.lightbend.com/activator/template/scalikejdbc-activator-template
+NOTICE: Formerly, this repository was a [Lightbend Activator](http://www.lightbend.com/activator/) template for ScalikeJDBC beginners. But Activator was EOL-ed on May 24, 2017. Thus, the repository is not an Activator template but an example app now
 
 ![screenshot](https://raw.github.com/scalikejdbc/hello-scalikejdbc/master/screenshot.png)
 
