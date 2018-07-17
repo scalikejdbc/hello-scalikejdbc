@@ -1,15 +1,15 @@
 package models
 
+import java.time.ZonedDateTime
+
 import scalikejdbc._
-import org.joda.time.DateTime
 
 case class Company(
-    id: Long,
-    name: String,
-    url: Option[String] = None,
-    createdAt: DateTime,
-    deletedAt: Option[DateTime] = None
-) {
+  id: Long,
+  name: String,
+  url: Option[String] = None,
+  createdAt: ZonedDateTime,
+  deletedAt: Option[ZonedDateTime] = None) {
 
   def save()(implicit session: DBSession = Company.autoSession): Company = Company.save(this)(session)
   def destroy()(implicit session: DBSession = Company.autoSession): Unit = Company.destroy(id)(session)
@@ -23,8 +23,7 @@ object Company extends SQLSyntaxSupport[Company] {
     name = rs.get(c.name),
     url = rs.get(c.url),
     createdAt = rs.get(c.createdAt),
-    deletedAt = rs.get(c.deletedAt)
-  )
+    deletedAt = rs.get(c.deletedAt))
 
   val c = Company.syntax("c")
   private val isNotDeleted = sqls.isNull(c.deletedAt)
@@ -53,13 +52,12 @@ object Company extends SQLSyntaxSupport[Company] {
     select(sqls.count).from(Company as c).where.append(isNotDeleted).and.append(sqls"${where}")
   }.map(_.long(1)).single.apply().get
 
-  def create(name: String, url: Option[String] = None, createdAt: DateTime = DateTime.now)(implicit session: DBSession = autoSession): Company = {
+  def create(name: String, url: Option[String] = None, createdAt: ZonedDateTime = ZonedDateTime.now)(implicit session: DBSession = autoSession): Company = {
     val id = withSQL {
       insert.into(Company).namedValues(
         column.name -> name,
         column.url -> url,
-        column.createdAt -> createdAt
-      )
+        column.createdAt -> createdAt)
     }.updateAndReturnGeneratedKey.apply()
 
     Company(id = id, name = name, url = url, createdAt = createdAt)
@@ -69,14 +67,13 @@ object Company extends SQLSyntaxSupport[Company] {
     withSQL {
       update(Company).set(
         column.name -> m.name,
-        column.url -> m.url
-      ).where.eq(column.id, m.id).and.isNull(column.deletedAt)
+        column.url -> m.url).where.eq(column.id, m.id).and.isNull(column.deletedAt)
     }.update.apply()
     m
   }
 
   def destroy(id: Long)(implicit session: DBSession = autoSession): Unit = withSQL {
-    update(Company).set(column.deletedAt -> DateTime.now).where.eq(column.id, id)
+    update(Company).set(column.deletedAt -> ZonedDateTime.now).where.eq(column.id, id)
   }.update.apply()
 
 }

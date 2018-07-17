@@ -13,7 +13,7 @@ import play.api.mvc._
 @Singleton
 class Companies @Inject() (json4s: Json4s) extends Controller {
 
-  import json4s._
+  import json4s.implicits._
   implicit val formats = DefaultFormats ++ JodaTimeSerializers.all
 
   def all = Action {
@@ -32,9 +32,7 @@ class Companies @Inject() (json4s: Json4s) extends Controller {
   private val companyForm = Form(
     mapping(
       "name" -> text.verifying(nonEmpty),
-      "url" -> optional(text)
-    )(CompanyForm.apply)(CompanyForm.unapply)
-  )
+      "url" -> optional(text))(CompanyForm.apply)(CompanyForm.unapply))
 
   def create = Action { implicit req =>
     companyForm.bindFromRequest.fold(
@@ -43,8 +41,7 @@ class Companies @Inject() (json4s: Json4s) extends Controller {
         val company = Company.create(name = form.name, url = form.url)
         Created.withHeaders(LOCATION -> s"/companies/${company.id}")
         NoContent
-      }
-    )
+      })
   }
 
   def delete(id: Long) = Action {
