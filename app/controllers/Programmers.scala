@@ -13,7 +13,7 @@ import play.api.mvc._
 @Singleton
 class Programmers @Inject() (json4s: Json4s) extends Controller {
 
-  import json4s._
+  import json4s.implicits._
   implicit val formats = DefaultFormats ++ JodaTimeSerializers.all
 
   def all = Action {
@@ -32,9 +32,7 @@ class Programmers @Inject() (json4s: Json4s) extends Controller {
   private val programmerForm = Form(
     mapping(
       "name" -> text.verifying(nonEmpty),
-      "companyId" -> optional(longNumber)
-    )(ProgrammerForm.apply)(ProgrammerForm.unapply)
-  )
+      "companyId" -> optional(longNumber))(ProgrammerForm.apply)(ProgrammerForm.unapply))
 
   def create = Action { implicit req =>
     programmerForm.bindFromRequest.fold(
@@ -43,8 +41,7 @@ class Programmers @Inject() (json4s: Json4s) extends Controller {
         val programmer = Programmer.create(name = form.name, companyId = form.companyId)
         Created.withHeaders(LOCATION -> s"/programmers/${programmer.id}")
         NoContent
-      }
-    )
+      })
   }
 
   def addSkill(programmerId: Long, skillId: Long) = Action {

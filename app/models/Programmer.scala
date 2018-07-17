@@ -1,17 +1,17 @@
 package models
 
+import java.time.ZonedDateTime
+
 import scalikejdbc._
-import org.joda.time.DateTime
 
 case class Programmer(
-    id: Long,
-    name: String,
-    companyId: Option[Long] = None,
-    company: Option[Company] = None,
-    skills: Seq[Skill] = Nil,
-    createdAt: DateTime,
-    deletedAt: Option[DateTime] = None
-) {
+  id: Long,
+  name: String,
+  companyId: Option[Long] = None,
+  company: Option[Company] = None,
+  skills: Seq[Skill] = Nil,
+  createdAt: ZonedDateTime,
+  deletedAt: Option[ZonedDateTime] = None) {
 
   def save()(implicit session: DBSession = Programmer.autoSession): Programmer = Programmer.save(this)(session)
   def destroy()(implicit session: DBSession = Programmer.autoSession): Unit = Programmer.destroy(id)(session)
@@ -47,8 +47,7 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
     name = rs.get(p.name),
     companyId = rs.get(p.companyId),
     createdAt = rs.get(p.createdAt),
-    deletedAt = rs.get(p.deletedAt)
-  )
+    deletedAt = rs.get(p.deletedAt))
 
   // join query with company table
   def apply(p: SyntaxProvider[Programmer], c: SyntaxProvider[Company])(rs: WrappedResultSet): Programmer = {
@@ -121,7 +120,7 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
     select(sqls.count).from(Programmer as p).where.append(isNotDeleted).and.append(sqls"${where}")
   }.map(_.long(1)).single.apply().get
 
-  def create(name: String, companyId: Option[Long] = None, createdAt: DateTime = DateTime.now)(implicit session: DBSession = autoSession): Programmer = {
+  def create(name: String, companyId: Option[Long] = None, createdAt: ZonedDateTime = ZonedDateTime.now)(implicit session: DBSession = autoSession): Programmer = {
     if (companyId.isDefined && Company.find(companyId.get).isEmpty) {
       throw new IllegalArgumentException(s"Company is not found! (companyId: ${companyId})")
     }
@@ -129,8 +128,7 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
       insert.into(Programmer).namedValues(
         column.name -> name,
         column.companyId -> companyId,
-        column.createdAt -> createdAt
-      )
+        column.createdAt -> createdAt)
     }.updateAndReturnGeneratedKey.apply()
 
     Programmer(
@@ -138,22 +136,20 @@ object Programmer extends SQLSyntaxSupport[Programmer] {
       name = name,
       companyId = companyId,
       company = companyId.flatMap(id => Company.find(id)),
-      createdAt = createdAt
-    )
+      createdAt = createdAt)
   }
 
   def save(m: Programmer)(implicit session: DBSession = autoSession): Programmer = {
     withSQL {
       update(Programmer).set(
         column.name -> m.name,
-        column.companyId -> m.companyId
-      ).where.eq(column.id, m.id).and.isNull(column.deletedAt)
+        column.companyId -> m.companyId).where.eq(column.id, m.id).and.isNull(column.deletedAt)
     }.update.apply()
     m
   }
 
   def destroy(id: Long)(implicit session: DBSession = autoSession): Unit = withSQL {
-    update(Programmer).set(column.deletedAt -> DateTime.now).where.eq(column.id, id)
+    update(Programmer).set(column.deletedAt -> ZonedDateTime.now).where.eq(column.id, id)
   }.update.apply()
 
 }

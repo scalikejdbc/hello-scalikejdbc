@@ -13,7 +13,7 @@ import play.api.mvc._
 @Singleton
 class Skills @Inject() (json4s: Json4s) extends Controller {
 
-  import json4s._
+  import json4s.implicits._
   implicit val formats = DefaultFormats ++ JodaTimeSerializers.all
 
   def all = Action {
@@ -30,8 +30,7 @@ class Skills @Inject() (json4s: Json4s) extends Controller {
   case class SkillForm(name: String)
 
   private val skillForm = Form(
-    mapping("name" -> text.verifying(nonEmpty))(SkillForm.apply)(SkillForm.unapply)
-  )
+    mapping("name" -> text.verifying(nonEmpty))(SkillForm.apply)(SkillForm.unapply))
 
   def create = Action { implicit req =>
     skillForm.bindFromRequest.fold(
@@ -40,8 +39,7 @@ class Skills @Inject() (json4s: Json4s) extends Controller {
         val skill = Skill.create(name = form.name)
         Created.withHeaders(LOCATION -> s"/skills/${skill.id}")
         NoContent
-      }
-    )
+      })
   }
 
   def delete(id: Long) = Action {

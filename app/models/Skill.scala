@@ -1,14 +1,14 @@
 package models
 
+import java.time.ZonedDateTime
+
 import scalikejdbc._
-import org.joda.time.DateTime
 
 case class Skill(
-    id: Long,
-    name: String,
-    createdAt: DateTime,
-    deletedAt: Option[DateTime] = None
-) {
+  id: Long,
+  name: String,
+  createdAt: ZonedDateTime,
+  deletedAt: Option[ZonedDateTime] = None) {
 
   def save()(implicit session: DBSession = Skill.autoSession): Skill = Skill.save(this)(session)
   def destroy()(implicit session: DBSession = Skill.autoSession): Unit = Skill.destroy(id)(session)
@@ -21,8 +21,7 @@ object Skill extends SQLSyntaxSupport[Skill] {
     id = rs.get(s.id),
     name = rs.get(s.name),
     createdAt = rs.get(s.createdAt),
-    deletedAt = rs.get(s.deletedAt)
-  )
+    deletedAt = rs.get(s.deletedAt))
 
   def opt(s: SyntaxProvider[Skill])(rs: WrappedResultSet): Option[Skill] = rs.longOpt(s.resultName.id).map(_ => apply(s.resultName)(rs))
 
@@ -54,7 +53,7 @@ object Skill extends SQLSyntaxSupport[Skill] {
     select(sqls.count).from(Skill as s).where.append(isNotDeleted).and.append(sqls"${where}")
   }.map(_.long(1)).single.apply().get
 
-  def create(name: String, createdAt: DateTime = DateTime.now)(implicit session: DBSession = autoSession): Skill = {
+  def create(name: String, createdAt: ZonedDateTime = ZonedDateTime.now)(implicit session: DBSession = autoSession): Skill = {
     val id = withSQL {
       insert.into(Skill).namedValues(column.name -> name, column.createdAt -> createdAt)
     }.updateAndReturnGeneratedKey.apply()
@@ -70,7 +69,7 @@ object Skill extends SQLSyntaxSupport[Skill] {
   }
 
   def destroy(id: Long)(implicit session: DBSession = autoSession): Unit = withSQL {
-    update(Skill).set(column.deletedAt -> DateTime.now).where.eq(column.id, id)
+    update(Skill).set(column.deletedAt -> ZonedDateTime.now).where.eq(column.id, id)
   }.update.apply()
 
 }
