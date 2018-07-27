@@ -38,5 +38,5 @@ lazy val root = (project in file("."))
   )
 
 lazy val scalikejdbcVersion = scalikejdbc.ScalikejdbcBuildInfo.version
-lazy val scalikejdbcPlayVersion = "2.6.0-scalikejdbc-3.2"
+lazy val scalikejdbcPlayVersion = "2.6.0-scalikejdbc-3.3"
 lazy val h2Version = "1.4.+"

@@ -25,9 +25,7 @@ class JsRouter extends Controller {
         Skills.all,
         Skills.show,
         Skills.create,
-        Skills.delete
-      )
-    ).as("text/javascript")
+        Skills.delete)).as("text/javascript")
   }
 
 }
